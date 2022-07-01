@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <title>Dynamic GMAT Questions</title>
+    <link rel="stylesheet" href="/static/css/reset.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/colors.css">
+    <link rel="icon" href="/static/images/favicon.ico">
+</head>
+<body>
+<section>
+    <header>
+        <h1><a href="/">Dynamic GMAT Questions</a></h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('about') }}">About</a></li>
+            <li><a href="{{ url_for('contact') }}">Contact</a></li>
+        </ul>
+    </nav>
+    <article>
+    {% if not disabled %}
+        {% block content %}
+        {% endblock %}
+    {% else %}
+        <h1>⚠️ Work in Progress!</h1>
+    {% endif %}
+    </article>
+    <footer>
+        <p>© 2022 Dynamic Quant</p>
+    </footer>
+</section>
+</body>
+</html>

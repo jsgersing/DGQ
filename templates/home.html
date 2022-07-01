@@ -1,0 +1,6 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Home</h1>
+    <h2>Random Value: {{ random_value | safe }}</h2>
+    <p>The random value above was generated with Python!</p>
+{% endblock %}

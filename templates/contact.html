@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Contact</h1>
+    <form action="{{ url_for('contact') }}" method="post">
+        <p>
+            By using this form you agree to allow this app and it's creators to
+            use your data in any way that they deem good and proper, for any
+            definition of good and proper. They will not sell your data to
+            anyone for any price. Warning! The data entered below may be shared
+            publicly. See the <a href="{{ url_for('about') }}">about page</a>
+            for more details.
+        </p><br>
+        <p><label>Name:
+            <input type="text" name="Name" placeholder="Input Your Name">
+        </label></p>
+        <p><label>Email:
+            <input type="text" name="Email" placeholder="Input Your Email">
+        </label></p>
+        <p><label>Favorite:
+            <select name="Favorite">
+                <option disabled selected value="None">Select Your Favorite
+                </option>
+                <option>Google</option>
+                <option>YouTube</option>
+                <option>Twitter</option>
+                <option>Metaverse</option>
+                <option>Facebook</option>
+                <option>MySpace</option>
+                <option>Reddit</option>
+            </select>
+        </label></p>
+        <p><label>Message:
+            <textarea name="Message"
+                      placeholder="Input Your Message"></textarea>
+        </label></p>
+        <p><label>Do you surf?
+            <input type="radio" name="Surf" id="now" value="now">
+            <label for="now">I'm surfing right now!</label>
+            <input type="radio" name="Surf" id="always" value="always">
+            <label for="always">Always</label>
+            <input type="radio" name="Surf" id="sometimes" value="sometimes">
+            <label for="sometimes">Sometimes</label>
+            <input type="radio" name="Surf" id="never" value="never">
+            <label for="never">Never</label>
+        </label></p>
+        <p><label>Contact me about anything!
+            <input type="checkbox" name="Permission"
+                   checked="checked" value="True">
+        </label></p>
+        <p>
+            <button type="submit" id="submit" name="submit">Submit</button>
+        </p>
+    </form>
+{% endblock %}
