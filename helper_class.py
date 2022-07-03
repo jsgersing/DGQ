@@ -50,11 +50,13 @@ class Question:
 
             choices = ['A', 'B', 'C', 'D', 'E']
             i = 0
+            # answer_grid = []
             while i < len(answer_choices):
+                # answer_grid.append([choices[i], answer_choices[i]])
                 print(f"{choices[i]}) {answer_choices[i]}")
                 i += 1
-            # return f"all choices: {answer_choices}"
-
+            return f'''{stem} A) {answer_choices[0]} B) {answer_choices[1]}
+C) {answer_choices[2]} D) {answer_choices[3]} E) {answer_choices[4]}'''
         return totalPrimes(a, b)
 
     def sum_of_first_n_numbers(self):
@@ -69,8 +71,11 @@ class Question:
             answer_choices = []
             first = gaussian_theorem_consecutive(n1)
             second = gaussian_theorem_consecutive(n2)
+            stem = f'''The sum of the first {n1} positive integers is {first}. 
+What is the sum of the first {n2} positive integers'''
             print(
-                f'The sum of the first {n1} positive intergers is {first}. What is the sum of the first {n2} postive integers')
+                f'''The sum of the first {n1} positive integers is {first}. 
+What is the sum of the first {n2} positive integers''')
             correct = second
             answer_choices.append(correct)
             while len(answer_choices) < 5:
@@ -88,7 +93,8 @@ class Question:
             while i < len(answer_choices):
                 print(f"{choices[i]}) {answer_choices[i]}")
                 i += 1
-
+            return f'''{stem} A) {answer_choices[0]} B) {answer_choices[1]}
+            C) {answer_choices[2]} D) {answer_choices[3]} E) {answer_choices[4]}'''
         return first_second(n1, n2)
 
     def mf_rat_ratio(self):
@@ -126,7 +132,8 @@ what was the ratio of death rate among the male rats to the death rate among the
             while i < len(answer_choices):
                 print(f"{choices[i]}) {answer_choices[i]}")
                 i += 1
-
+            return f'''{stem} A) {answer_choices[0]} B) {answer_choices[1]}
+                        C) {answer_choices[2]} D) {answer_choices[3]} E) {answer_choices[4]}'''
         return rat_ratio(n1, n2)
 
     def age_diff(self):
@@ -163,5 +170,6 @@ How many years old is Al today?"""
             while i < len(answer_choices):
                 print(f"{choices[i]}) {answer_choices[i]}")
                 i += 1
-
+            return f'''{stem} A) {answer_choices[0]} B) {answer_choices[1]}
+                        C) {answer_choices[2]} D) {answer_choices[3]} E) {answer_choices[4]}'''
         return Al_age()
