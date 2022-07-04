@@ -1,6 +1,8 @@
 from random import randint, randrange
 from fractions import Fraction
 
+import names
+
 
 class Question:
 
@@ -19,7 +21,7 @@ class Question:
             if n == 1 or n == 0 or (n % 2 == 0 and n > 2):
                 return "Not prime"
             else:
-                '''Not prime if divisable by another number less than
+                '''Not prime if divisible by another number less than
                 or equal to the square root of itself.
                 n**(1/2) returns square root of n'''
                 for i in range(3, int(n ** (1 / 2)) + 1, 2):
@@ -47,16 +49,15 @@ class Question:
                 answer_choices = sorted(wrongs)
             else:
                 answer_choices = (sorted(wrongs))[::-1]
-
             choices = ['A', 'B', 'C', 'D', 'E']
             i = 0
-            # answer_grid = []
             while i < len(answer_choices):
-                # answer_grid.append([choices[i], answer_choices[i]])
                 print(f"{choices[i]}) {answer_choices[i]}")
                 i += 1
-            return f'''{stem} A) {answer_choices[0]} B) {answer_choices[1]}
-C) {answer_choices[2]} D) {answer_choices[3]} E) {answer_choices[4]}'''
+
+            return stem, answer_choices
+#             return f'''{stem} A) {answer_choices[0]} B) {answer_choices[1]}
+# C) {answer_choices[2]} D) {answer_choices[3]} E) {answer_choices[4]}'''
         return totalPrimes(a, b)
 
     def sum_of_first_n_numbers(self):
@@ -72,10 +73,10 @@ C) {answer_choices[2]} D) {answer_choices[3]} E) {answer_choices[4]}'''
             first = gaussian_theorem_consecutive(n1)
             second = gaussian_theorem_consecutive(n2)
             stem = f'''The sum of the first {n1} positive integers is {first}. 
-What is the sum of the first {n2} positive integers'''
+What is the sum of the first {n2} positive integers?'''
             print(
                 f'''The sum of the first {n1} positive integers is {first}. 
-What is the sum of the first {n2} positive integers''')
+What is the sum of the first {n2} positive integers?''')
             correct = second
             answer_choices.append(correct)
             while len(answer_choices) < 5:
@@ -93,8 +94,11 @@ What is the sum of the first {n2} positive integers''')
             while i < len(answer_choices):
                 print(f"{choices[i]}) {answer_choices[i]}")
                 i += 1
-            return f'''{stem} A) {answer_choices[0]} B) {answer_choices[1]}
-            C) {answer_choices[2]} D) {answer_choices[3]} E) {answer_choices[4]}'''
+        #     return f'''{stem} A) {answer_choices[0]} B) {answer_choices[1]}
+        #     C) {answer_choices[2]} D) {answer_choices[3]} E) {answer_choices[4]}'''
+        # return first_second(n1, n2)
+            return stem, answer_choices
+
         return first_second(n1, n2)
 
     def mf_rat_ratio(self):
@@ -105,9 +109,9 @@ What is the sum of the first {n2} positive integers''')
         def rat_ratio(n1, n2):
 
             answer_choices = []
-            stem = f"""{n1} percent of the rats included in an experiment were male rats. If some of the rats 
-died during the experiment and {n2} percent of the rats that died were male rats, 
-what was the ratio of death rate among the male rats to the death rate among the female rats?"""
+            stem = f"""{n1} percent of the mice included in an experiment were male mice. If some of the mice 
+died during the experiment and {n2} percent of the mice that died were male mice, 
+what was the ratio of death rate among the male mice to the death rate among the female mice?"""
             print(stem)
             num_of_num = int((n2 / 100) * 50)
             denom_of_num = n1
@@ -132,8 +136,7 @@ what was the ratio of death rate among the male rats to the death rate among the
             while i < len(answer_choices):
                 print(f"{choices[i]}) {answer_choices[i]}")
                 i += 1
-            return f'''{stem} A) {answer_choices[0]} B) {answer_choices[1]}
-                        C) {answer_choices[2]} D) {answer_choices[3]} E) {answer_choices[4]}'''
+            return stem, answer_choices
         return rat_ratio(n1, n2)
 
     def age_diff(self):
@@ -145,9 +148,11 @@ what was the ratio of death rate among the male rats to the death rate among the
             randomizer2 = randint(2, randomizer1 - 1)
             in_years = randrange(3, 15, 2)
             less_years = randrange(1, 5, 2)
-            stem = f"""Today Al is {factor_dict[randomizer1]} as old as Pat. In {in_years} year(s),
-Al will be {less_years} year(s) less than {factor_dict[randomizer2]} as old as Pat will be then. 
-How many years old is Al today?"""
+            name_1 = names.get_first_name(gender='male')
+            name_2 = names.get_first_name(gender='female')
+            stem = f"""Today {name_1} is {factor_dict[randomizer1]} as old as {name_2}. In {in_years} year(s),
+{name_1} will be {less_years} year(s) less than {factor_dict[randomizer2]} as old as {name_2} will be then. 
+How many years old is {name_1} today?"""
             correct = int((randomizer2 * in_years - less_years - in_years) / (1 - (randomizer2 / randomizer1)))
             answer_choices = []
             if correct == 0:
@@ -170,6 +175,5 @@ How many years old is Al today?"""
             while i < len(answer_choices):
                 print(f"{choices[i]}) {answer_choices[i]}")
                 i += 1
-            return f'''{stem} A) {answer_choices[0]} B) {answer_choices[1]}
-                        C) {answer_choices[2]} D) {answer_choices[3]} E) {answer_choices[4]}'''
+            return stem, answer_choices
         return Al_age()
