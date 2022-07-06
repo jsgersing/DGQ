@@ -1,4 +1,4 @@
-# DyanamicGMATQuestions
+# DynamicGMATQuestions
 
 This repository contains files for an app that displays dynamically generated GMAT quantitative questions. 
 
