@@ -1,11 +1,19 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>Question4</h1>
+    <h1>Question2</h1>
     <h2>{{ message1 }}</h2>
     <h2>A) {{ message2 }}</h2>
     <h2>B) {{ message3 }}</h2>
     <h2>C) {{ message4 }}</h2>
     <h2>D) {{ message5 }}</h2>
     <h2>E) {{ message6 }}</h2>
+    <p>Token: {{ message8 }}</p>
+    <p>{{ message9 }}</p>
+<form action="question4" method = "POST">
+    <p>Your Answer <input type = "text" name = "Answer4" /></p>
+    <p>Your Token <input type = "text" name = "uuid" /></p>
+    <p><input type = "submit" value = "submit" /></p>
+</form>
+    <p>{{ message7 }}</p>
     <p>The random question above was generated with Python!</p>
 {% endblock %}
