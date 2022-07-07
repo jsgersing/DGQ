@@ -1,6 +1,6 @@
 from random import randint, randrange
 from fractions import Fraction
-
+import uuid
 import names
 
 
@@ -30,6 +30,7 @@ class Question:
                 return "Prime"
 
         def totalPrimes(a, b):
+            q_id = uuid.uuid4()
             arr = range(a + 1, b)
             wrongs = []
             correct = 0
@@ -54,8 +55,18 @@ class Question:
             while i < len(answer_choices):
                 print(f"{choices[i]}) {answer_choices[i]}")
                 i += 1
-
-            return stem, answer_choices
+            if answer_choices[0] == correct:
+                correct_letter = 'A'
+            elif answer_choices[1] == correct:
+                correct_letter = 'B'
+            elif answer_choices[2] == correct:
+                correct_letter = 'C'
+            elif answer_choices[3] == correct:
+                correct_letter = 'D'
+            else:
+                correct_letter = 'E'
+            print(correct_letter)
+            return stem, answer_choices, correct_letter, q_id
 #             return f'''{stem} A) {answer_choices[0]} B) {answer_choices[1]}
 # C) {answer_choices[2]} D) {answer_choices[3]} E) {answer_choices[4]}'''
         return totalPrimes(a, b)
@@ -69,6 +80,7 @@ class Question:
             return int((n + 1) * (n) / 2)
 
         def first_second(n1, n2):
+            q_id = uuid.uuid4()
             answer_choices = []
             first = gaussian_theorem_consecutive(n1)
             second = gaussian_theorem_consecutive(n2)
@@ -94,10 +106,21 @@ What is the sum of the first {n2} positive integers?''')
             while i < len(answer_choices):
                 print(f"{choices[i]}) {answer_choices[i]}")
                 i += 1
+            if answer_choices[0] == correct:
+                correct_letter = 'A'
+            elif answer_choices[1] == correct:
+                correct_letter = 'B'
+            elif answer_choices[2] == correct:
+                correct_letter = 'C'
+            elif answer_choices[3] == correct:
+                correct_letter = 'D'
+            else:
+                correct_letter = 'E'
+            print(correct_letter)
         #     return f'''{stem} A) {answer_choices[0]} B) {answer_choices[1]}
         #     C) {answer_choices[2]} D) {answer_choices[3]} E) {answer_choices[4]}'''
         # return first_second(n1, n2)
-            return stem, answer_choices
+            return stem, answer_choices, correct_letter, q_id
 
         return first_second(n1, n2)
 
@@ -107,7 +130,7 @@ What is the sum of the first {n2} positive integers?''')
         n2 = randint(2, 4) * 10
 
         def rat_ratio(n1, n2):
-
+            q_id = uuid.uuid4()
             answer_choices = []
             stem = f"""{n1} percent of the mice included in an experiment were male mice. If some of the mice 
 died during the experiment and {n2} percent of the mice that died were male mice, 
@@ -136,12 +159,24 @@ what was the ratio of death rate among the male mice to the death rate among the
             while i < len(answer_choices):
                 print(f"{choices[i]}) {answer_choices[i]}")
                 i += 1
-            return stem, answer_choices
+            if answer_choices[0] == correct:
+                correct_letter = 'A'
+            elif answer_choices[1] == correct:
+                correct_letter = 'B'
+            elif answer_choices[2] == correct:
+                correct_letter = 'C'
+            elif answer_choices[3] == correct:
+                correct_letter = 'D'
+            else:
+                correct_letter = 'E'
+            print(correct_letter)
+            return stem, answer_choices, correct_letter, q_id
         return rat_ratio(n1, n2)
 
     def age_diff(self):
 
         def Al_age():
+            q_id = uuid.uuid4()
             factor_dict = {2: 'twice', 3: 'three times', 4: 'four times', 5: 'five times', 6: 'six times',
                            7: 'seven times'}
             randomizer1 = randrange(3, 7, 2)
@@ -175,5 +210,16 @@ How many years old is {name_1} today?"""
             while i < len(answer_choices):
                 print(f"{choices[i]}) {answer_choices[i]}")
                 i += 1
-            return stem, answer_choices
+            if answer_choices[0] == correct:
+                correct_letter = 'A'
+            elif answer_choices[1] == correct:
+                correct_letter = 'B'
+            elif answer_choices[2] == correct:
+                correct_letter = 'C'
+            elif answer_choices[3] == correct:
+                correct_letter = 'D'
+            else:
+                correct_letter = 'E'
+            print(correct_letter)
+            return stem, answer_choices, correct_letter, q_id
         return Al_age()
