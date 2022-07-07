@@ -4,7 +4,7 @@ import uuid
 import names
 
 
-class Question:
+class QuestionFactory:
 
     def __init__(self, number):
         self.number = number
@@ -66,7 +66,8 @@ class Question:
             else:
                 correct_letter = 'E'
             print(correct_letter)
-            return stem, answer_choices, correct_letter, q_id
+            return QuestionElements(question_stem=stem, ac_list=answer_choices, correct=correct_letter, uuid=q_id)
+            # return stem, answer_choices, correct_letter, q_id
 #             return f'''{stem} A) {answer_choices[0]} B) {answer_choices[1]}
 # C) {answer_choices[2]} D) {answer_choices[3]} E) {answer_choices[4]}'''
         return totalPrimes(a, b)
@@ -223,3 +224,23 @@ How many years old is {name_1} today?"""
             print(correct_letter)
             return stem, answer_choices, correct_letter, q_id
         return Al_age()
+
+
+class QuestionElements:
+
+    def __init__(self, question_stem, ac_list, correct, uuid):
+        self.question_stem = question_stem
+        self.ac_list = ac_list
+        self.correct = correct
+        self.uuid = uuid
+
+    def __repr__(self):
+        return f"Question:"
+
+    def unpack_question(ac_list):
+        a = ac_list[0]
+        b = ac_list[1]
+        c = ac_list[2]
+        d = ac_list[3]
+        e = ac_list[4]
+        return a, b, c, d, e
