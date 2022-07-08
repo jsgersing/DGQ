@@ -1,10 +1,13 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, render_template, request
 from helper_class import QuestionFactory
+from os import getenv
+from dotenv import load_dotenv
 
+load_dotenv()
 APP = Flask(__name__)
 
-APP.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:////Users/jasongersing/PycharmProjects/pythonProject/pythonProject3/DGQ/data/test.db"
+APP.config['SQLALCHEMY_DATABASE_URI'] = getenv("DATABASE_URI")
 APP.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 DB = SQLAlchemy()
 DB.init_app(APP)
