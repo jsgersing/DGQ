@@ -12,11 +12,11 @@ class QuestionFactory:
     def __repr__(self):
         return f"Question number: {self.number}"
 
-    def No_of_Primes(self):
+    def no_of_primes(self):
         a = randint(5, 10)
         b = randint(20, 50)
 
-        def primeCheck(n):
+        def prime_check(n):
             # 0, 1, even numbers greater than 2 are NOT PRIME
             if n == 1 or n == 0 or (n % 2 == 0 and n > 2):
                 return "Not prime"
@@ -29,7 +29,7 @@ class QuestionFactory:
                         return "Not prime"
                 return "Prime"
 
-        def totalPrimes(a, b):
+        def total_primes(a, b):
             q_id = uuid.uuid4()
             arr = range(a + 1, b)
             wrongs = []
@@ -37,7 +37,7 @@ class QuestionFactory:
             stem = f"How many prime numbers are less than {b} and greater than {a}?"
             print(stem)
             for num in arr:
-                if primeCheck(num) == "Prime":
+                if prime_check(num) == "Prime":
                     correct += 1
             while len(wrongs) < 4:
                 wrong = correct + randint(-5, 5)
@@ -70,7 +70,7 @@ class QuestionFactory:
             # return stem, answer_choices, correct_letter, q_id
 #             return f'''{stem} A) {answer_choices[0]} B) {answer_choices[1]}
 # C) {answer_choices[2]} D) {answer_choices[3]} E) {answer_choices[4]}'''
-        return totalPrimes(a, b)
+        return total_primes(a, b)
 
     def sum_of_first_n_numbers(self):
 
@@ -118,10 +118,7 @@ What is the sum of the first {n2} positive integers?''')
             else:
                 correct_letter = 'E'
             print(correct_letter)
-        #     return f'''{stem} A) {answer_choices[0]} B) {answer_choices[1]}
-        #     C) {answer_choices[2]} D) {answer_choices[3]} E) {answer_choices[4]}'''
-        # return first_second(n1, n2)
-            return stem, answer_choices, correct_letter, q_id
+            return QuestionElements(question_stem=stem, ac_list=answer_choices, correct=correct_letter, uuid=q_id)
 
         return first_second(n1, n2)
 
@@ -171,12 +168,12 @@ what was the ratio of death rate among the male mice to the death rate among the
             else:
                 correct_letter = 'E'
             print(correct_letter)
-            return stem, answer_choices, correct_letter, q_id
+            return QuestionElements(question_stem=stem, ac_list=answer_choices, correct=correct_letter, uuid=q_id)
         return rat_ratio(n1, n2)
 
     def age_diff(self):
 
-        def Al_age():
+        def al_age():
             q_id = uuid.uuid4()
             factor_dict = {2: 'twice', 3: 'three times', 4: 'four times', 5: 'five times', 6: 'six times',
                            7: 'seven times'}
@@ -192,7 +189,7 @@ How many years old is {name_1} today?"""
             correct = int((randomizer2 * in_years - less_years - in_years) / (1 - (randomizer2 / randomizer1)))
             answer_choices = []
             if correct == 0:
-                Al_age()
+                al_age()
             else:
                 print(stem)
                 answer_choices.append(correct)
@@ -222,8 +219,8 @@ How many years old is {name_1} today?"""
             else:
                 correct_letter = 'E'
             print(correct_letter)
-            return stem, answer_choices, correct_letter, q_id
-        return Al_age()
+            return QuestionElements(question_stem=stem, ac_list=answer_choices, correct=correct_letter, uuid=q_id)
+        return al_age()
 
 
 class QuestionElements:
@@ -237,10 +234,10 @@ class QuestionElements:
     def __repr__(self):
         return f"Question:"
 
-    def unpack_question(ac_list):
-        a = ac_list[0]
-        b = ac_list[1]
-        c = ac_list[2]
-        d = ac_list[3]
-        e = ac_list[4]
-        return a, b, c, d, e
+    # def unpack_question(self, ac_list):
+    #     a = ac_list[0]
+    #     b = ac_list[1]
+    #     c = ac_list[2]
+    #     d = ac_list[3]
+    #     e = ac_list[4]
+    #     return a, b, c, d, e
