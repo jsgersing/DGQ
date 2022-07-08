@@ -59,7 +59,7 @@ def about():
 
 @APP.route("/question1", methods=['POST', 'GET'])
 def question1():
-    question = QuestionFactory(1).No_of_Primes()
+    question = QuestionFactory(1).no_of_primes()
     test_data = Answers(uu=str(question.uuid), correct=question.correct,
                         stem=question.question_stem, a=question.ac_list[0],
                         b=question.ac_list[1], c=question.ac_list[2], d=question.ac_list[3],
@@ -74,111 +74,123 @@ def question1():
     if request.method == 'POST':
         answer = request.values.get('Answer').upper()
         token = request.values.get('uuid')
-        db_answer = Answers.query.filter(Answers.uu == token).one()
+        db_answer = Answers.query.filter(Answers.uu == token).all()[0]
         if answer != db_answer.correct:
-            response = "TRY AGAIN"
+            response = "Incorrect"
+            return render_template(
+                "q1_incorrect.html", disabled=False, message1=db_answer.stem, message2=db_answer.a,
+                message3=db_answer.b, message4=db_answer.c, message5=db_answer.d,
+                message6=db_answer.e, message7=response, message9=db_answer)
         else:
             response = "CORRECT!"
+        DB.session.add(test_data)
+        DB.session.commit()
         return render_template(
-            "question1.html", disabled=False, message1=db_answer.stem, message2=db_answer.a,
-            message3=db_answer.b, message4=db_answer.c, message5=db_answer.d,
-            message6=db_answer.e, message7=response, message9=db_answer)
+            "question1.html", disabled=False, message1=question.question_stem, message2=question.ac_list[0],
+            message3=question.ac_list[1], message4=question.ac_list[2], message5=question.ac_list[3],
+            message6=question.ac_list[4], message7=response, message8=question.uuid)
 
 
 @APP.route("/question2", methods=['POST', 'GET'])
 def question2():
     question = QuestionFactory(2).sum_of_first_n_numbers()
-    q2 = question[0]
-    ac_list = question[1]
-    correct = question[2]
-    uuid = str(question[3])
-    a = ac_list[0]
-    b = ac_list[1]
-    c = ac_list[2]
-    d = ac_list[3]
-    e = ac_list[4]
-    test_data = Answers(uu=uuid, correct=correct)
+    test_data = Answers(uu=str(question.uuid), correct=question.correct,
+                        stem=question.question_stem, a=question.ac_list[0],
+                        b=question.ac_list[1], c=question.ac_list[2], d=question.ac_list[3],
+                        e=question.ac_list[4])
     if request.method == 'GET':
         DB.session.add(test_data)
         DB.session.commit()
         return render_template(
-            "question2.html", disabled=False, message1=q2, message2=a, message3=b,
-            message4=c, message5=d, message6=e, message8=uuid)
+            "question2.html", disabled=False, message1=question.question_stem, message2=question.ac_list[0],
+            message3=question.ac_list[1], message4=question.ac_list[2], message5=question.ac_list[3],
+            message6=question.ac_list[4], message8=question.uuid)
     if request.method == 'POST':
-        answer = request.values.get('Answer2').upper()
+        answer = request.values.get('Answer').upper()
         token = request.values.get('uuid')
         db_answer = Answers.query.filter(Answers.uu == token).one()
         if answer != db_answer.correct:
-            response = "TRY AGAIN"
+            response = "Incorrect"
+            return render_template(
+                "q2_incorrect.html", disabled=False, message1=db_answer.stem, message2=db_answer.a,
+                message3=db_answer.b, message4=db_answer.c, message5=db_answer.d,
+                message6=db_answer.e, message7=response, message9=db_answer)
         else:
             response = "CORRECT!"
+        DB.session.add(test_data)
+        DB.session.commit()
         return render_template(
-            "question2.html", disabled=False, message1=q2, message2=a, message3=b,
-            message4=c, message5=d, message6=e, message7=response, message9=db_answer)
+            "question2.html", disabled=False, message1=question.question_stem, message2=question.ac_list[0],
+            message3=question.ac_list[1], message4=question.ac_list[2], message5=question.ac_list[3],
+            message6=question.ac_list[4], message7=response, message8=question.uuid)
 
 
 @APP.route("/question3", methods=['POST', 'GET'])
 def question3():
     question = QuestionFactory(3).mf_rat_ratio()
-    q3 = question[0]
-    ac_list = question[1]
-    correct = question[2]
-    uuid = str(question[3])
-    a = ac_list[0]
-    b = ac_list[1]
-    c = ac_list[2]
-    d = ac_list[3]
-    e = ac_list[4]
-    test_data = Answers(uu=uuid, correct=correct)
+    test_data = Answers(uu=str(question.uuid), correct=question.correct,
+                        stem=question.question_stem, a=str(question.ac_list[0]),
+                        b=str(question.ac_list[1]), c=str(question.ac_list[2]), d=str(question.ac_list[3]),
+                        e=str(question.ac_list[4]))
     if request.method == 'GET':
         DB.session.add(test_data)
         DB.session.commit()
         return render_template(
-            "question3.html", disabled=False, message1=q3, message2=a, message3=b,
-            message4=c, message5=d, message6=e, message8=uuid)
+            "question3.html", disabled=False, message1=question.question_stem, message2=question.ac_list[0],
+            message3=question.ac_list[1], message4=question.ac_list[2], message5=question.ac_list[3],
+            message6=question.ac_list[4], message8=question.uuid)
     if request.method == 'POST':
-        answer = request.values.get('Answer3').upper()
+        answer = request.values.get('Answer').upper()
         token = request.values.get('uuid')
         db_answer = Answers.query.filter(Answers.uu == token).one()
         if answer != db_answer.correct:
-            response = "TRY AGAIN"
+            response = "Incorrect"
+            return render_template(
+                "q3_incorrect.html", disabled=False, message1=db_answer.stem, message2=db_answer.a,
+                message3=db_answer.b, message4=db_answer.c, message5=db_answer.d,
+                message6=db_answer.e, message7=response, message9=db_answer)
         else:
             response = "CORRECT!"
+        DB.session.add(test_data)
+        DB.session.commit()
         return render_template(
-            "question3.html", disabled=False, message1=q3, message2=a, message3=b,
-            message4=c, message5=d, message6=e, message7=response, message9=db_answer)
+            "question3.html", disabled=False, message1=question.question_stem, message2=question.ac_list[0],
+            message3=question.ac_list[1], message4=question.ac_list[2], message5=question.ac_list[3],
+            message6=question.ac_list[4], message7=response, message8=question.uuid)
 
 
 @APP.route("/question4", methods=['POST', 'GET'])
 def question4():
     question = QuestionFactory(4).age_diff()
-    q4 = question[0]
-    ac_list = question[1]
-    correct = question[2]
-    uuid = str(question[3])
-    a = ac_list[0]
-    b = ac_list[1]
-    c = ac_list[2]
-    d = ac_list[3]
-    e = ac_list[4]
-    test_data = Answers(uu=uuid, correct=correct)
+    test_data = Answers(uu=str(question.uuid), correct=question.correct,
+                        stem=question.question_stem, a=question.ac_list[0],
+                        b=question.ac_list[1], c=question.ac_list[2], d=question.ac_list[3],
+                        e=question.ac_list[4])
     if request.method == 'GET':
         DB.session.add(test_data)
         DB.session.commit()
         return render_template(
-            "question4.html", disabled=False, message1=q4, message2=a, message3=b,
-            message4=c, message5=d, message6=e, message8=uuid)
+            "question4.html", disabled=False, message1=question.question_stem, message2=question.ac_list[0],
+            message3=question.ac_list[1], message4=question.ac_list[2], message5=question.ac_list[3],
+            message6=question.ac_list[4], message8=question.uuid)
     if request.method == 'POST':
-        answer = request.values.get('Answer4').upper()
+        answer = request.values.get('Answer').upper()
         token = request.values.get('uuid')
         db_answer = Answers.query.filter(Answers.uu == token).one()
         if answer != db_answer.correct:
-            response = "TRY AGAIN"
+            response = "Incorrect"
+            return render_template(
+                "q4_incorrect.html", disabled=False, message1=db_answer.stem, message2=db_answer.a,
+                message3=db_answer.b, message4=db_answer.c, message5=db_answer.d,
+                message6=db_answer.e, message7=response, message9=db_answer)
         else:
             response = "CORRECT!"
+        DB.session.add(test_data)
+        DB.session.commit()
         return render_template(
-            "question4.html", disabled=False, message1=q4, message2=a, message3=b,
-            message4=c, message5=d, message6=e, message7=response, message9=db_answer)
+            "question4.html", disabled=False, message1=question.question_stem, message2=question.ac_list[0],
+            message3=question.ac_list[1], message4=question.ac_list[2], message5=question.ac_list[3],
+            message6=question.ac_list[4], message7=response, message8=question.uuid)
 
 
 @APP.route("/contact")
