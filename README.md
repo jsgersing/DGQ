@@ -1,8 +1,6 @@
 # DynamicGMATQuestions
 
-This repository contains files for an app that displays dynamically generated GMAT quantitative questions. 
-
-## Current Purpose
+## Introduction
 
 This project is a proof-of-concept: to create a simple app with a U/I that provides semi-randomly generated practice questions for the GMAT quantitative section.
 
