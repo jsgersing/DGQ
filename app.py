@@ -71,9 +71,9 @@ def question1():
         DB.session.add(test_data)
         DB.session.commit()
         return render_template(
-            "question1.html", disabled=False, message1=question.question_stem, message2=question.ac_list[0],
-            message3=question.ac_list[1], message4=question.ac_list[2], message5=question.ac_list[3],
-            message6=question.ac_list[4], message8=question.uuid)
+            "generic_question.html", disabled=False, stem=question.question_stem, a=question.ac_list[0],
+            b=question.ac_list[1], c=question.ac_list[2], d=question.ac_list[3],
+            e=question.ac_list[4], uuid=question.uuid, q_number=1)
     if request.method == 'POST':
         answer = request.values.get('Answer').upper()
         token = request.values.get('uuid')
@@ -81,17 +81,17 @@ def question1():
         if answer != db_answer.correct:
             response = "Incorrect"
             return render_template(
-                "q1_incorrect.html", disabled=False, message1=db_answer.stem, message2=db_answer.a,
-                message3=db_answer.b, message4=db_answer.c, message5=db_answer.d,
-                message6=db_answer.e, message7=response, message9=db_answer)
+                "generic_incorrect.html", disabled=False, stem=db_answer.stem, a=db_answer.a,
+                b=db_answer.b, c=db_answer.c, d=db_answer.d,
+                e=db_answer.e, response=response, db_answer=db_answer, q_number=1)
         else:
             response = "CORRECT!"
         DB.session.add(test_data)
         DB.session.commit()
         return render_template(
-            "question1.html", disabled=False, message1=question.question_stem, message2=question.ac_list[0],
-            message3=question.ac_list[1], message4=question.ac_list[2], message5=question.ac_list[3],
-            message6=question.ac_list[4], message7=response, message8=question.uuid)
+            "generic_question.html", disabled=False, stem=question.question_stem, a=question.ac_list[0],
+            b=question.ac_list[1], c=question.ac_list[2], d=question.ac_list[3],
+            e=question.ac_list[4], response=response, uuid=question.uuid, q_number=1)
 
 
 @APP.route("/question2", methods=['POST', 'GET'])
@@ -105,9 +105,11 @@ def question2():
         DB.session.add(test_data)
         DB.session.commit()
         return render_template(
-            "question2.html", disabled=False, message1=question.question_stem, message2=question.ac_list[0],
-            message3=question.ac_list[1], message4=question.ac_list[2], message5=question.ac_list[3],
-            message6=question.ac_list[4], message8=question.uuid)
+            "generic_question.html", disabled=False, stem=question.question_stem,
+            a="{:,}".format(question.ac_list[0]),
+            b="{:,}".format(question.ac_list[1]),
+            c="{:,}".format(question.ac_list[2]), d="{:,}".format(question.ac_list[3]),
+            e="{:,}".format(question.ac_list[4]), uuid=question.uuid, q_number=2)
     if request.method == 'POST':
         answer = request.values.get('Answer').upper()
         token = request.values.get('uuid')
@@ -115,17 +117,20 @@ def question2():
         if answer != db_answer.correct:
             response = "Incorrect"
             return render_template(
-                "q2_incorrect.html", disabled=False, message1=db_answer.stem, message2=db_answer.a,
-                message3=db_answer.b, message4=db_answer.c, message5=db_answer.d,
-                message6=db_answer.e, message7=response, message9=db_answer)
+                "generic_incorrect.html", disabled=False, stem=db_answer.stem, a="{:,}".format(int(db_answer.a)),
+                b="{:,}".format(int(db_answer.b)), c="{:,}".format(int(db_answer.c)),
+                d="{:,}".format(int(db_answer.d)),
+                e="{:,}".format(int(db_answer.e)), response=response, db_answer=db_answer, q_number=2)
         else:
             response = "CORRECT!"
         DB.session.add(test_data)
         DB.session.commit()
         return render_template(
-            "question2.html", disabled=False, message1=question.question_stem, message2=question.ac_list[0],
-            message3=question.ac_list[1], message4=question.ac_list[2], message5=question.ac_list[3],
-            message6=question.ac_list[4], message7=response, message8=question.uuid)
+            "generic_question.html", disabled=False, stem=question.question_stem,
+            a="{:,}".format(question.ac_list[0]),
+            b="{:,}".format(question.ac_list[1]), c="{:,}".format(question.ac_list[2]),
+            d="{:,}".format(question.ac_list[3]),
+            e="{:,}".format(question.ac_list[4]), response=response, uuid=question.uuid, q_number=2)
 
 
 @APP.route("/question3", methods=['POST', 'GET'])
@@ -139,9 +144,9 @@ def question3():
         DB.session.add(test_data)
         DB.session.commit()
         return render_template(
-            "question3.html", disabled=False, message1=question.question_stem, message2=question.ac_list[0],
-            message3=question.ac_list[1], message4=question.ac_list[2], message5=question.ac_list[3],
-            message6=question.ac_list[4], message8=question.uuid)
+            "generic_question.html", disabled=False, stem=question.question_stem, a=question.ac_list[0],
+            b=question.ac_list[1], c=question.ac_list[2], d=question.ac_list[3],
+            e=question.ac_list[4], uuid=question.uuid, q_number=3)
     if request.method == 'POST':
         answer = request.values.get('Answer').upper()
         token = request.values.get('uuid')
@@ -149,17 +154,17 @@ def question3():
         if answer != db_answer.correct:
             response = "Incorrect"
             return render_template(
-                "q3_incorrect.html", disabled=False, message1=db_answer.stem, message2=db_answer.a,
-                message3=db_answer.b, message4=db_answer.c, message5=db_answer.d,
-                message6=db_answer.e, message7=response, message9=db_answer)
+                "generic_incorrect.html", disabled=False, stem=db_answer.stem, a=db_answer.a,
+                b=db_answer.b, c=db_answer.c, d=db_answer.d,
+                e=db_answer.e, response=response, db_answer=db_answer, q_number=3)
         else:
             response = "CORRECT!"
         DB.session.add(test_data)
         DB.session.commit()
         return render_template(
-            "question3.html", disabled=False, message1=question.question_stem, message2=question.ac_list[0],
-            message3=question.ac_list[1], message4=question.ac_list[2], message5=question.ac_list[3],
-            message6=question.ac_list[4], message7=response, message8=question.uuid)
+            "generic_question.html", disabled=False, stem=question.question_stem, a=question.ac_list[0],
+            b=question.ac_list[1], c=question.ac_list[2], d=question.ac_list[3],
+            e=question.ac_list[4], response=response, uuid=question.uuid, q_number=3)
 
 
 @APP.route("/question4", methods=['POST', 'GET'])
@@ -173,9 +178,9 @@ def question4():
         DB.session.add(test_data)
         DB.session.commit()
         return render_template(
-            "question4.html", disabled=False, message1=question.question_stem, message2=question.ac_list[0],
-            message3=question.ac_list[1], message4=question.ac_list[2], message5=question.ac_list[3],
-            message6=question.ac_list[4], message8=question.uuid)
+            "generic_question.html", disabled=False, stem=question.question_stem, a=question.ac_list[0],
+            b=question.ac_list[1], c=question.ac_list[2], d=question.ac_list[3],
+            e=question.ac_list[4], uuid=question.uuid, q_number=4)
     if request.method == 'POST':
         answer = request.values.get('Answer').upper()
         token = request.values.get('uuid')
@@ -183,17 +188,56 @@ def question4():
         if answer != db_answer.correct:
             response = "Incorrect"
             return render_template(
-                "q4_incorrect.html", disabled=False, message1=db_answer.stem, message2=db_answer.a,
-                message3=db_answer.b, message4=db_answer.c, message5=db_answer.d,
-                message6=db_answer.e, message7=response, message9=db_answer)
+                "generic_incorrect.html", disabled=False, stem=db_answer.stem, a=db_answer.a,
+                b=db_answer.b, c=db_answer.c, d=db_answer.d,
+                e=db_answer.e, response=response, db_answer=db_answer, q_number=4)
         else:
             response = "CORRECT!"
         DB.session.add(test_data)
         DB.session.commit()
         return render_template(
-            "question4.html", disabled=False, message1=question.question_stem, message2=question.ac_list[0],
-            message3=question.ac_list[1], message4=question.ac_list[2], message5=question.ac_list[3],
-            message6=question.ac_list[4], message7=response, message8=question.uuid)
+            "generic_question.html", disabled=False, stem=question.question_stem, a=question.ac_list[0],
+            b=question.ac_list[1], c=question.ac_list[2], d=question.ac_list[3],
+            e=question.ac_list[4], response=response, uuid=question.uuid, q_number=4)
+
+
+@APP.route("/question5", methods=['POST', 'GET'])
+def question5():
+    question = QuestionFactory(5).jacket_profit()
+    test_data = Answers(uu=str(question.uuid), correct=question.correct,
+                        stem=question.question_stem, a=question.ac_list[0],
+                        b=question.ac_list[1], c=question.ac_list[2], d=question.ac_list[3],
+                        e=question.ac_list[4])
+    if request.method == 'GET':
+        DB.session.add(test_data)
+        DB.session.commit()
+        return render_template(
+            "generic_question.html", disabled=False, stem=question.question_stem,
+            a="${:,.2f}".format(question.ac_list[0]),
+            b="${:,.2f}".format(question.ac_list[1]), c="${:,.2f}".format(question.ac_list[2]),
+            d="${:,.2f}".format(question.ac_list[3]),
+            e="${:,.2f}".format(question.ac_list[4]), uuid=question.uuid, q_number=5)
+    if request.method == 'POST':
+        answer = request.values.get('Answer').upper()
+        token = request.values.get('uuid')
+        db_answer = Answers.query.filter(Answers.uu == token).one()
+        if answer != db_answer.correct:
+            response = "Incorrect"
+            return render_template(
+                "generic_incorrect.html", disabled=False, stem=db_answer.stem, a="${:,.2f}".format(float(db_answer.a)),
+                b="${:,.2f}".format(float(db_answer.b)), c="${:,.2f}".format(float(db_answer.c)),
+                d="${:,.2f}".format(float(db_answer.d)),
+                e="${:,.2f}".format(float(db_answer.e)), response=response, db_answer=db_answer, q_number=5)
+        else:
+            response = "CORRECT!"
+        DB.session.add(test_data)
+        DB.session.commit()
+        return render_template(
+            "generic_question.html", disabled=False, stem=question.question_stem,
+            a="${:,.2f}".format(question.ac_list[0]),
+            b="${:,.2f}".format(question.ac_list[1]), c="${:,.2f}".format(question.ac_list[2]),
+            d="${:,.2f}".format(question.ac_list[3]),
+            e="${:,.2f}".format(question.ac_list[4]), repsonse=response, uuid=question.uuid, q_number=5)
 
 
 @APP.route("/contact")

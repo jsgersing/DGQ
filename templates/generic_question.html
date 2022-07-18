@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h2>Question {{ q_number }}:</h2>
+    <h2>{{ stem }}</h2>
+    <h2>A) {{ a }}</h2>
+    <h2>B) {{ b }}</h2>
+    <h2>C) {{ c  }}</h2>
+    <h2>D) {{ d  }}</h2>
+    <h2>E) {{ e }}</h2>
+    <h2>{{ response }}</h2>
+
+<form action="/question{{ q_number }}" method = "POST">
+    <p>Your Answer <input type = "text" name = "Answer" /></p>
+   <input type = "hidden" name = "uuid" value = {{ uuid }} />
+    <p><input type = "submit" value = "submit" /></p>
+</form>
+
+    <p>The random question above was generated with Python!</p>
+{% endblock %}
