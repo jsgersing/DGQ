@@ -4,6 +4,32 @@ import uuid
 import names
 
 
+def arrange_answer_choices(answer_choices, correct):
+    asc_desc = randint(0, 1)
+    if asc_desc == 0:
+        answer_choices = sorted(answer_choices)
+    else:
+        answer_choices = (sorted(answer_choices))[::-1]
+
+    choices = ['A', 'B', 'C', 'D', 'E']
+    i = 0
+    while i < len(answer_choices):
+        print(f"{choices[i]}) {answer_choices[i]}")
+        i += 1
+    if answer_choices[0] == correct:
+        correct_letter = 'A'
+    elif answer_choices[1] == correct:
+        correct_letter = 'B'
+    elif answer_choices[2] == correct:
+        correct_letter = 'C'
+    elif answer_choices[3] == correct:
+        correct_letter = 'D'
+    else:
+        correct_letter = 'E'
+    print(correct_letter)
+    return answer_choices, correct_letter
+
+
 class QuestionFactory:
 
     def __init__(self, number):
@@ -12,7 +38,8 @@ class QuestionFactory:
     def __repr__(self):
         return f"Question number: {self.number}"
 
-    def no_of_primes(self):
+    @staticmethod
+    def no_of_primes():
         a = randint(5, 10)
         b = randint(20, 50)
 
@@ -40,50 +67,30 @@ class QuestionFactory:
                 if prime_check(num) == "Prime":
                     correct += 1
             while len(wrongs) < 4:
-                wrong = correct + randint(-5, 5)
+                wrong = correct + randint(-5, 10)
                 if wrong not in wrongs and wrong > 0 and wrong != correct:
                     wrongs.append(wrong)
-            # print(f"The correct answer is {correct}, and the wrong answers are {wrongs}")
             wrongs.append(correct)
-            asc_desc = randint(0, 1)
-            if asc_desc == 0:
-                answer_choices = sorted(wrongs)
-            else:
-                answer_choices = (sorted(wrongs))[::-1]
-            choices = ['A', 'B', 'C', 'D', 'E']
-            i = 0
-            while i < len(answer_choices):
-                print(f"{choices[i]}) {answer_choices[i]}")
-                i += 1
-            if answer_choices[0] == correct:
-                correct_letter = 'A'
-            elif answer_choices[1] == correct:
-                correct_letter = 'B'
-            elif answer_choices[2] == correct:
-                correct_letter = 'C'
-            elif answer_choices[3] == correct:
-                correct_letter = 'D'
-            else:
-                correct_letter = 'E'
-            print(correct_letter)
-            return QuestionElements(question_stem=stem, ac_list=answer_choices, correct=correct_letter, uuid=q_id)
-            # return stem, answer_choices, correct_letter, q_id
-#             return f'''{stem} A) {answer_choices[0]} B) {answer_choices[1]}
-# C) {answer_choices[2]} D) {answer_choices[3]} E) {answer_choices[4]}'''
+            choices_and_correct = arrange_answer_choices(answer_choices=wrongs, correct=correct)
+
+            return QuestionElements(
+                question_stem=stem, ac_list=choices_and_correct[0], correct=choices_and_correct[1], uuid=q_id)
+
         return total_primes(a, b)
 
-    def sum_of_first_n_numbers(self):
+    @staticmethod
+    def sum_of_first_n_numbers():
 
         n1 = randint(1, 10) * 25
         n2 = n1 * randint(2, 5)
 
         def gaussian_theorem_consecutive(n):
-            return int((n + 1) * (n) / 2)
+            return int((n + 1) * n / 2)
 
         def first_second(n1, n2):
             q_id = uuid.uuid4()
             answer_choices = []
-            first = gaussian_theorem_consecutive(n1)
+            first = "{:,}".format(gaussian_theorem_consecutive(n1))
             second = gaussian_theorem_consecutive(n2)
             stem = f'''The sum of the first {n1} positive integers is {first}. 
 What is the sum of the first {n2} positive integers?'''
@@ -93,36 +100,18 @@ What is the sum of the first {n2} positive integers?''')
             correct = second
             answer_choices.append(correct)
             while len(answer_choices) < 5:
-                wrongs = correct + (randint(-5, 5)) * 25
+                wrongs = correct + (randint(-5, 10)) * 25
                 if wrongs not in answer_choices and wrongs > 0 and wrongs != correct:
                     answer_choices.append(wrongs)
-            asc_desc = randint(0, 1)
-            if asc_desc == 0:
-                answer_choices = sorted(answer_choices)
-            else:
-                answer_choices = (sorted(answer_choices))[::-1]
+            choices_and_correct = arrange_answer_choices(answer_choices=answer_choices, correct=correct)
 
-            choices = ['A', 'B', 'C', 'D', 'E']
-            i = 0
-            while i < len(answer_choices):
-                print(f"{choices[i]}) {answer_choices[i]}")
-                i += 1
-            if answer_choices[0] == correct:
-                correct_letter = 'A'
-            elif answer_choices[1] == correct:
-                correct_letter = 'B'
-            elif answer_choices[2] == correct:
-                correct_letter = 'C'
-            elif answer_choices[3] == correct:
-                correct_letter = 'D'
-            else:
-                correct_letter = 'E'
-            print(correct_letter)
-            return QuestionElements(question_stem=stem, ac_list=answer_choices, correct=correct_letter, uuid=q_id)
+            return QuestionElements(
+                question_stem=stem, ac_list=choices_and_correct[0], correct=choices_and_correct[1], uuid=q_id)
 
         return first_second(n1, n2)
 
-    def mf_rat_ratio(self):
+    @staticmethod
+    def mf_rat_ratio():
 
         n1 = randint(4, 6) * 10
         n2 = randint(2, 4) * 10
@@ -146,32 +135,14 @@ what was the ratio of death rate among the male mice to the death rate among the
                 wrongs = Fraction(randint(1, 9) / randint(1, 9)).limit_denominator()
                 if wrongs not in answer_choices and wrongs > 0 and wrongs != correct:
                     answer_choices.append(wrongs)
-            asc_desc = randint(0, 1)
-            if asc_desc == 0:
-                answer_choices = sorted(answer_choices)
-            else:
-                answer_choices = (sorted(answer_choices))[::-1]
+            choices_and_correct = arrange_answer_choices(answer_choices=answer_choices, correct=correct)
+            return QuestionElements(
+                question_stem=stem, ac_list=choices_and_correct[0], correct=choices_and_correct[1], uuid=q_id)
 
-            choices = ['A', 'B', 'C', 'D', 'E']
-            i = 0
-            while i < len(answer_choices):
-                print(f"{choices[i]}) {answer_choices[i]}")
-                i += 1
-            if answer_choices[0] == correct:
-                correct_letter = 'A'
-            elif answer_choices[1] == correct:
-                correct_letter = 'B'
-            elif answer_choices[2] == correct:
-                correct_letter = 'C'
-            elif answer_choices[3] == correct:
-                correct_letter = 'D'
-            else:
-                correct_letter = 'E'
-            print(correct_letter)
-            return QuestionElements(question_stem=stem, ac_list=answer_choices, correct=correct_letter, uuid=q_id)
         return rat_ratio(n1, n2)
 
-    def age_diff(self):
+    @staticmethod
+    def age_diff():
 
         def al_age():
             q_id = uuid.uuid4()
@@ -194,33 +165,43 @@ How many years old is {name_1} today?"""
                 print(stem)
                 answer_choices.append(correct)
             while len(answer_choices) < 5:
-                wrongs = correct + randint(-20, 20)
+                wrongs = correct + randint(-10, 20)
                 if wrongs not in answer_choices and wrongs > 0 and wrongs != correct:
                     answer_choices.append(wrongs)
-            asc_desc = randint(0, 1)
-            if asc_desc == 0:
-                answer_choices = sorted(answer_choices)
-            else:
-                answer_choices = (sorted(answer_choices))[::-1]
-
-            choices = ['A', 'B', 'C', 'D', 'E']
-            i = 0
-            while i < len(answer_choices):
-                print(f"{choices[i]}) {answer_choices[i]}")
-                i += 1
-            if answer_choices[0] == correct:
-                correct_letter = 'A'
-            elif answer_choices[1] == correct:
-                correct_letter = 'B'
-            elif answer_choices[2] == correct:
-                correct_letter = 'C'
-            elif answer_choices[3] == correct:
-                correct_letter = 'D'
-            else:
-                correct_letter = 'E'
-            print(correct_letter)
-            return QuestionElements(question_stem=stem, ac_list=answer_choices, correct=correct_letter, uuid=q_id)
+            choices_and_correct = arrange_answer_choices(answer_choices=answer_choices, correct=correct)
+            return QuestionElements(
+                question_stem=stem, ac_list=choices_and_correct[0], correct=choices_and_correct[1], uuid=q_id)
         return al_age()
+
+    @staticmethod
+    def jacket_profit():
+        q_id = uuid.uuid4()
+        mark_up = randint(1, 3) / 4
+        if mark_up == 1 / 4:
+            discount = 1 / 5
+        else:
+            discount = randint(1, 2) / 5
+        purchase_price = int((20 * randint(3, 6)))
+        sale_price = purchase_price / (1 - mark_up)
+        discounted_price = sale_price * (1 - discount)
+        correct = discounted_price - purchase_price
+        stem = f"""A merchant purchased a jacket for ${purchase_price} and
+then determined a selling price that equalled the purchase price of
+the jacket plus a markup that was {int(mark_up * 100)} percent of the selling
+price. During a sale, the merchant discounted the selling price by
+{int(discount * 100)} percent and sold the jacket. What was the merchant's 
+gross profit on the sale?"""
+        answer_choices = []
+        print(stem)
+        answer_choices.append(correct)
+        while len(answer_choices) < 5:
+            wrongs = correct + randint(-10, 20)
+            if wrongs not in answer_choices and wrongs > 0 and wrongs != correct:
+                answer_choices.append(wrongs)
+        choices_and_correct = arrange_answer_choices(answer_choices=answer_choices, correct=correct)
+
+        return QuestionElements(
+            question_stem=stem, ac_list=choices_and_correct[0], correct=choices_and_correct[1], uuid=q_id)
 
 
 class QuestionElements:
