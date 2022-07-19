@@ -1,1 +1,1 @@
-web: gunicorn DGQ:APP -t 120
+web: gunicorn app:APP -t 120
