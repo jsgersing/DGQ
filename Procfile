@@ -1,1 +1,1 @@
-web: gunicorn DGQ:APP
+web: gunicorn app:APP
