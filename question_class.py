@@ -72,7 +72,6 @@ class QuestionFactory:
                     wrongs.append(wrong)
             wrongs.append(correct)
             choices_and_correct = arrange_answer_choices(answer_choices=wrongs, correct=correct)
-
             return QuestionElements(
                 question_stem=stem, ac_list=choices_and_correct[0], correct=choices_and_correct[1], uuid=q_id)
 
