@@ -62,6 +62,18 @@ def question5():
     return output
 
 
+@APP.route("/question6", methods=['POST', 'GET'])
+def question6():
+    output = route_unpacking(QuestionFactory(6).work_time(), q_number=6)
+    return output
+
+
+@APP.route("/question7", methods=['POST', 'GET'])
+def question7():
+    output = route_unpacking(QuestionFactory(7).percent_solution(), q_number=7)
+    return output
+
+
 @APP.route("/contact")
 def contact():
     return render_template("contact.html", disabled=True)

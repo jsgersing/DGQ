@@ -202,6 +202,70 @@ gross profit on the sale?"""
         return QuestionElements(
             question_stem=stem, ac_list=choices_and_correct[0], correct=choices_and_correct[1], uuid=q_id)
 
+    @staticmethod
+    def work_time():
+        q_id = uuid.uuid4()
+        random_base = randrange(1, 8, 2)
+        together = random_base * randint(2, 3)
+        alone = random_base * randrange(4, 8, 2)
+        correct = int(alone * together / (alone - together))
+        name_1 = names.get_first_name(gender='male')
+        name_2 = names.get_first_name(gender='female')
+        stem = f"""Working alone, {name_1} can complete a certain kind of job in {alone}
+hours. {name_1} and {name_2}, working together at their respective rates, can complete one of
+these jobs in {together} hours. In how many hours can {name_2}, working alone, complete one of
+these jobs?"""
+        answer_choices = []
+        print(stem)
+        answer_choices.append(correct)
+        while len(answer_choices) < 5:
+            wrongs = correct + randint(-10, 20)
+            if wrongs not in answer_choices and wrongs > 0 and wrongs != correct:
+                answer_choices.append(wrongs)
+        choices_and_correct = arrange_answer_choices(answer_choices=answer_choices, correct=correct)
+
+        return QuestionElements(
+            question_stem=stem, ac_list=choices_and_correct[0], correct=choices_and_correct[1], uuid=q_id)
+
+
+    @staticmethod
+    def percent_solution():
+        q_id = uuid.uuid4()
+        percent_liquid_x = randrange(10, 40, 10)
+        percent_water = 100 - percent_liquid_x
+        starting_kg = randrange(6, 12, 2)
+        evaporated_kg = randrange(2, 4, 2)
+        correct = 100 * (starting_kg * percent_liquid_x / 100 + evaporated_kg * percent_liquid_x / 100) / starting_kg
+        stem = f"""Solution Y is {percent_liquid_x} percent liquid X and 
+        {percent_water} percent water. If {evaporated_kg} kilograms of water
+        evaporate from {starting_kg} kilograms of solution Y and {evaporated_kg}
+        kilograms of solution Y are added to the remaining 
+        {starting_kg - evaporated_kg} kilograms of liquid, what percent of this
+        new solution is liquid X?"""
+        answer_choices = []
+        print(stem)
+        answer_choices.append(correct)
+        while len(answer_choices) < 5:
+            wrongs = correct + randint(-10, 20)
+            if wrongs not in answer_choices and wrongs > 0 and wrongs != correct:
+                answer_choices.append(wrongs)
+        asc_desc = randint(0, 1)
+        if asc_desc == 0:
+            answer_choices = sorted(answer_choices)
+        else:
+            answer_choices = (sorted(answer_choices))[::-1]
+
+        choices = ['A', 'B', 'C', 'D', 'E']
+        i = 0
+        while i < len(answer_choices):
+            print(f"{choices[i]}) {answer_choices[i]}%")
+            i += 1
+        choices_and_correct = arrange_answer_choices(answer_choices=answer_choices, correct=correct)
+        choices = choices_and_correct[0]
+        choices_as_percents = [f"{choice}%" for choice in choices]
+        return QuestionElements(
+            question_stem=stem, ac_list=choices_as_percents, correct=choices_and_correct[1], uuid=q_id)
+
 
 class QuestionElements:
 
