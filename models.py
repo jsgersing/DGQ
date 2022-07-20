@@ -34,8 +34,13 @@ def route_unpacking(question, q_number):
                         b=question.ac_list[1], c=question.ac_list[2], d=question.ac_list[3],
                         e=question.ac_list[4])
     if request.method == 'GET':
-        DB.session.add(test_data)
-        DB.session.commit()
+        try:
+            DB.session.add(test_data)
+            DB.session.commit()
+        except:
+            DB.session.rollback()
+            raise
+
         return render_template(
             "generic_question.html", disabled=False, stem=question.question_stem, a=question.ac_list[0],
             b=question.ac_list[1], c=question.ac_list[2], d=question.ac_list[3],
@@ -52,13 +57,16 @@ def route_unpacking(question, q_number):
                 e=db_answer.e, response=response, db_answer=db_answer, q_number=q_number)
         else:
             response = "CORRECT!"
-        DB.session.add(test_data)
-        DB.session.commit()
-        return render_template(
-            "generic_question.html", disabled=False, stem=question.question_stem, a=question.ac_list[0],
+        try:
+            DB.session.add(test_data)
+            DB.session.commit()
+            return render_template("generic_question.html", disabled=False, stem=question.question_stem,
+            a=question.ac_list[0],
             b=question.ac_list[1], c=question.ac_list[2], d=question.ac_list[3],
             e=question.ac_list[4], response=response, uuid=question.uuid, q_number=q_number)
-
+        except:
+            DB.session.rollback()
+            raise
 
 def route_unpacking_commas(question, q_number):
     test_data = Answers(uu=str(question.uuid), correct=question.correct,
@@ -66,8 +74,12 @@ def route_unpacking_commas(question, q_number):
                         b=question.ac_list[1], c=question.ac_list[2], d=question.ac_list[3],
                         e=question.ac_list[4])
     if request.method == 'GET':
-        DB.session.add(test_data)
-        DB.session.commit()
+        try:
+            DB.session.add(test_data)
+            DB.session.commit()
+        except:
+            DB.session.rollback()
+            raise
         return render_template(
             "generic_question.html", disabled=False, stem=question.question_stem,
             a="{:,}".format(question.ac_list[0]),
@@ -87,15 +99,17 @@ def route_unpacking_commas(question, q_number):
                 e="{:,}".format(int(db_answer.e)), response=response, db_answer=db_answer, q_number=q_number)
         else:
             response = "CORRECT!"
-        DB.session.add(test_data)
-        DB.session.commit()
-        return render_template(
-            "generic_question.html", disabled=False, stem=question.question_stem,
-            a="{:,}".format(question.ac_list[0]),
-            b="{:,}".format(question.ac_list[1]), c="{:,}".format(question.ac_list[2]),
-            d="{:,}".format(question.ac_list[3]),
-            e="{:,}".format(question.ac_list[4]), response=response, uuid=question.uuid, q_number=q_number)
-
+        try:
+            DB.session.add(test_data)
+            DB.session.commit()
+            return render_template("generic_question.html", disabled=False, stem=question.question_stem,
+                                   a="{:,}".format(question.ac_list[0]),
+                                   b="{:,}".format(question.ac_list[1]), c="{:,}".format(question.ac_list[2]),
+                                   d="{:,}".format(question.ac_list[3]), e="{:,}".format(question.ac_list[4]),
+                                   response=response, uuid=question.uuid, q_number=q_number)
+        except:
+            DB.session.rollback()
+            raise
 
 def route_unpacking_dollars(question, q_number):
     test_data = Answers(uu=str(question.uuid), correct=question.correct,
@@ -103,8 +117,12 @@ def route_unpacking_dollars(question, q_number):
                         b=question.ac_list[1], c=question.ac_list[2], d=question.ac_list[3],
                         e=question.ac_list[4])
     if request.method == 'GET':
-        DB.session.add(test_data)
-        DB.session.commit()
+        try:
+            DB.session.add(test_data)
+            DB.session.commit()
+        except:
+            DB.session.rollback()
+            raise
         return render_template(
             "generic_question.html", disabled=False, stem=question.question_stem,
             a="${:,.2f}".format(question.ac_list[0]),
@@ -124,15 +142,19 @@ def route_unpacking_dollars(question, q_number):
                 e="${:,.2f}".format(float(db_answer.e)), response=response, db_answer=db_answer, q_number=q_number)
         else:
             response = "CORRECT!"
-        DB.session.add(test_data)
-        DB.session.commit()
-        return render_template(
-            "generic_question.html", disabled=False, stem=question.question_stem,
-            a="${:,.2f}".format(question.ac_list[0]),
-            b="${:,.2f}".format(question.ac_list[1]), c="${:,.2f}".format(question.ac_list[2]),
-            d="${:,.2f}".format(question.ac_list[3]),
-            e="${:,.2f}".format(question.ac_list[4]), repsonse=response, uuid=question.uuid, q_number=q_number)
-
+        try:
+            DB.session.add(test_data)
+            DB.session.commit()
+            return render_template("generic_question.html", disabled=False, stem=question.question_stem,
+                                   a="${:,.2f}".format(question.ac_list[0]),
+                                   b="${:,.2f}".format(question.ac_list[1]),
+                                   c="${:,.2f}".format(question.ac_list[2]),
+                                   d="${:,.2f}".format(question.ac_list[3]),
+                                   e="${:,.2f}".format(question.ac_list[4]),
+                                   repsonse=response, uuid=question.uuid, q_number=q_number)
+        except:
+            DB.session.rollback()
+            raise
 
 def route_unpacking_fractions(question, q_number):
     test_data = Answers(uu=str(question.uuid), correct=question.correct,
@@ -140,8 +162,12 @@ def route_unpacking_fractions(question, q_number):
                         b=str(question.ac_list[1]), c=str(question.ac_list[2]), d=str(question.ac_list[3]),
                         e=str(question.ac_list[4]))
     if request.method == 'GET':
-        DB.session.add(test_data)
-        DB.session.commit()
+        try:
+            DB.session.add(test_data)
+            DB.session.commit()
+        except:
+            DB.session.rollback()
+            raise
         return render_template(
             "generic_question.html", disabled=False, stem=question.question_stem, a=question.ac_list[0],
             b=question.ac_list[1], c=question.ac_list[2], d=question.ac_list[3],
@@ -158,9 +184,16 @@ def route_unpacking_fractions(question, q_number):
                 e=db_answer.e, response=response, db_answer=db_answer, q_number=q_number)
         else:
             response = "CORRECT!"
-        DB.session.add(test_data)
-        DB.session.commit()
-        return render_template(
-            "generic_question.html", disabled=False, stem=question.question_stem, a=question.ac_list[0],
-            b=question.ac_list[1], c=question.ac_list[2], d=question.ac_list[3],
-            e=question.ac_list[4], response=response, uuid=question.uuid, q_number=q_number)
+        try:
+            DB.session.add(test_data)
+            DB.session.commit()
+            return render_template("generic_question.html", disabled=False, stem=question.question_stem,
+                                   a=question.ac_list[0],
+                                   b=question.ac_list[1],
+                                   c=question.ac_list[2],
+                                   d=question.ac_list[3],
+                                   e=question.ac_list[4],
+                                   response=response, uuid=question.uuid, q_number=q_number)
+        except:
+            DB.session.rollback()
+            raise
