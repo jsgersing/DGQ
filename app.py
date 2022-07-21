@@ -1,18 +1,15 @@
 from flask import Flask, render_template
 from question_class import QuestionFactory
-from os import getenv
 from dotenv import load_dotenv
-from models import DB, route_unpacking, route_unpacking_commas, route_unpacking_dollars, route_unpacking_fractions
+from models import route_unpacking, route_unpacking_commas, route_unpacking_dollars, route_unpacking_fractions
+from mongo_interface_component import MongoDB
+
 
 load_dotenv()
 APP = Flask(__name__)
 
-APP.config['SQLALCHEMY_DATABASE_URI'] = getenv("DATABASE_URI")
-APP.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-DB.init_app(APP)
-APP.app_context().push()
-DB.session.commit()
+db = MongoDB("gmat_data")
+questions = db.read("questions")
 
 
 @APP.route('/')
@@ -22,8 +19,9 @@ def home():
 
 @APP.route("/reset")
 def reset():
-    DB.drop_all()
-    DB.create_all()
+    # DB.drop_all()
+    # DB.create_all()
+    db.delete("questions")
     return render_template('home.html', title='Reset DB')
 
 

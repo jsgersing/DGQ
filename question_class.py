@@ -1,6 +1,5 @@
 from random import randint, randrange
 from fractions import Fraction
-import uuid
 import names
 
 
@@ -57,7 +56,6 @@ class QuestionFactory:
                 return "Prime"
 
         def total_primes(a, b):
-            q_id = uuid.uuid4()
             arr = range(a + 1, b)
             wrongs = []
             correct = 0
@@ -73,7 +71,7 @@ class QuestionFactory:
             wrongs.append(correct)
             choices_and_correct = arrange_answer_choices(answer_choices=wrongs, correct=correct)
             return QuestionElements(
-                question_stem=stem, ac_list=choices_and_correct[0], correct=choices_and_correct[1], uuid=q_id)
+                question_stem=stem, ac_list=choices_and_correct[0], correct=choices_and_correct[1])
 
         return total_primes(a, b)
 
@@ -87,7 +85,6 @@ class QuestionFactory:
             return int((n + 1) * n / 2)
 
         def first_second(n1, n2):
-            q_id = uuid.uuid4()
             answer_choices = []
             first = "{:,}".format(gaussian_theorem_consecutive(n1))
             second = gaussian_theorem_consecutive(n2)
@@ -105,7 +102,7 @@ What is the sum of the first {n2} positive integers?''')
             choices_and_correct = arrange_answer_choices(answer_choices=answer_choices, correct=correct)
 
             return QuestionElements(
-                question_stem=stem, ac_list=choices_and_correct[0], correct=choices_and_correct[1], uuid=q_id)
+                question_stem=stem, ac_list=choices_and_correct[0], correct=choices_and_correct[1])
 
         return first_second(n1, n2)
 
@@ -116,7 +113,6 @@ What is the sum of the first {n2} positive integers?''')
         n2 = randint(2, 4) * 10
 
         def rat_ratio(n1, n2):
-            q_id = uuid.uuid4()
             answer_choices = []
             stem = f"""{n1} percent of the mice included in an experiment were male mice. If some of the mice 
 died during the experiment and {n2} percent of the mice that died were male mice, 
@@ -136,7 +132,7 @@ what was the ratio of death rate among the male mice to the death rate among the
                     answer_choices.append(wrongs)
             choices_and_correct = arrange_answer_choices(answer_choices=answer_choices, correct=correct)
             return QuestionElements(
-                question_stem=stem, ac_list=choices_and_correct[0], correct=choices_and_correct[1], uuid=q_id)
+                question_stem=stem, ac_list=choices_and_correct[0], correct=choices_and_correct[1])
 
         return rat_ratio(n1, n2)
 
@@ -144,7 +140,6 @@ what was the ratio of death rate among the male mice to the death rate among the
     def age_diff():
 
         def al_age():
-            q_id = uuid.uuid4()
             factor_dict = {2: 'twice', 3: 'three times', 4: 'four times', 5: 'five times', 6: 'six times',
                            7: 'seven times'}
             randomizer1 = randrange(3, 7, 2)
@@ -169,12 +164,11 @@ How many years old is {name_1} today?"""
                     answer_choices.append(wrongs)
             choices_and_correct = arrange_answer_choices(answer_choices=answer_choices, correct=correct)
             return QuestionElements(
-                question_stem=stem, ac_list=choices_and_correct[0], correct=choices_and_correct[1], uuid=q_id)
+                question_stem=stem, ac_list=choices_and_correct[0], correct=choices_and_correct[1])
         return al_age()
 
     @staticmethod
     def jacket_profit():
-        q_id = uuid.uuid4()
         mark_up = randint(1, 3) / 4
         if mark_up == 1 / 4:
             discount = 1 / 5
@@ -200,11 +194,10 @@ gross profit on the sale?"""
         choices_and_correct = arrange_answer_choices(answer_choices=answer_choices, correct=correct)
 
         return QuestionElements(
-            question_stem=stem, ac_list=choices_and_correct[0], correct=choices_and_correct[1], uuid=q_id)
+            question_stem=stem, ac_list=choices_and_correct[0], correct=choices_and_correct[1])
 
     @staticmethod
     def work_time():
-        q_id = uuid.uuid4()
         random_base = randrange(1, 8, 2)
         together = random_base * randint(2, 3)
         alone = random_base * randrange(4, 8, 2)
@@ -225,12 +218,11 @@ these jobs?"""
         choices_and_correct = arrange_answer_choices(answer_choices=answer_choices, correct=correct)
 
         return QuestionElements(
-            question_stem=stem, ac_list=choices_and_correct[0], correct=choices_and_correct[1], uuid=q_id)
+            question_stem=stem, ac_list=choices_and_correct[0], correct=choices_and_correct[1])
 
 
     @staticmethod
     def percent_solution():
-        q_id = uuid.uuid4()
         percent_liquid_x = randrange(10, 40, 10)
         percent_water = 100 - percent_liquid_x
         starting_kg = randrange(6, 12, 2)
@@ -264,24 +256,17 @@ these jobs?"""
         choices = choices_and_correct[0]
         choices_as_percents = [f"{choice}%" for choice in choices]
         return QuestionElements(
-            question_stem=stem, ac_list=choices_as_percents, correct=choices_and_correct[1], uuid=q_id)
+            question_stem=stem, ac_list=choices_as_percents, correct=choices_and_correct[1])
 
 
 class QuestionElements:
 
-    def __init__(self, question_stem, ac_list, correct, uuid):
+    def __init__(self, question_stem, ac_list, correct):
         self.question_stem = question_stem
         self.ac_list = ac_list
         self.correct = correct
-        self.uuid = uuid
 
     def __repr__(self):
         return f"Question:"
 
-    # def unpack_question(self, ac_list):
-    #     a = ac_list[0]
-    #     b = ac_list[1]
-    #     c = ac_list[2]
-    #     d = ac_list[3]
-    #     e = ac_list[4]
-    #     return a, b, c, d, e
+
