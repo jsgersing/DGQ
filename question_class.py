@@ -254,7 +254,8 @@ these jobs?"""
             i += 1
         choices_and_correct = arrange_answer_choices(answer_choices=answer_choices, correct=correct)
         choices = choices_and_correct[0]
-        choices_as_percents = [f"{choice}%" for choice in choices]
+        rounded = ["{:,.2f}".format(choice) for choice in choices]
+        choices_as_percents = [f"{choice}%" for choice in rounded]
         return QuestionElements(
             question_stem=stem, ac_list=choices_as_percents, correct=choices_and_correct[1])
 
