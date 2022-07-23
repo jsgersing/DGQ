@@ -130,10 +130,6 @@ def route_unpacking_dollars(question, q_number):
 
 
 def route_unpacking_fractions(question, q_number):
-    # test_data = Answers(uu=str(question.uuid), correct=question.correct,
-    #                     stem=question.question_stem, a=str(question.ac_list[0]),
-    #                     b=str(question.ac_list[1]), c=str(question.ac_list[2]), d=str(question.ac_list[3]),
-    #                     e=str(question.ac_list[4]))
     test_data = {"correct": question.correct,
                  "stem": str(question.question_stem), "a": str(question.ac_list[0]),
                  "b": str(question.ac_list[1]), "c": str(question.ac_list[2]),
