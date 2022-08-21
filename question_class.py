@@ -1,9 +1,11 @@
 from random import randint, randrange
 from fractions import Fraction
+from typing import Union
+
 import names
 
 
-def arrange_answer_choices(answer_choices, correct):
+def arrange_answer_choices(answer_choices: list, correct: Union[int, float, Fraction]) -> tuple:
     asc_desc = randint(0, 1)
     if asc_desc == 0:
         answer_choices = sorted(answer_choices)
@@ -42,7 +44,7 @@ class QuestionFactory:
         a = randint(5, 10)
         b = randint(20, 50)
 
-        def prime_check(n):
+        def prime_check(n: int) -> str:
             # 0, 1, even numbers greater than 2 are NOT PRIME
             if n == 1 or n == 0 or (n % 2 == 0 and n > 2):
                 return "Not prime"
@@ -55,7 +57,7 @@ class QuestionFactory:
                         return "Not prime"
                 return "Prime"
 
-        def total_primes(a, b):
+        def total_primes(a: int, b: int) -> QuestionElements:
             arr = range(a + 1, b)
             wrongs = []
             correct = 0
@@ -81,10 +83,10 @@ class QuestionFactory:
         n1 = randint(1, 10) * 25
         n2 = n1 * randint(2, 5)
 
-        def gaussian_theorem_consecutive(n):
+        def gaussian_theorem_consecutive(n: int) -> int:
             return int((n + 1) * n / 2)
 
-        def first_second(n1, n2):
+        def first_second(n1: int, n2: int) -> QuestionElements:
             answer_choices = []
             first = "{:,}".format(gaussian_theorem_consecutive(n1))
             second = gaussian_theorem_consecutive(n2)
@@ -112,7 +114,7 @@ What is the sum of the first {n2} positive integers?''')
         n1 = randint(4, 6) * 10
         n2 = randint(2, 4) * 10
 
-        def rat_ratio(n1, n2):
+        def rat_ratio(n1: int, n2: int) -> QuestionElements:
             answer_choices = []
             stem = f"""{n1} percent of the mice included in an experiment were male mice. If some of the mice 
 died during the experiment and {n2} percent of the mice that died were male mice, 
@@ -219,7 +221,6 @@ these jobs?"""
 
         return QuestionElements(
             question_stem=stem, ac_list=choices_and_correct[0], correct=choices_and_correct[1])
-
 
     @staticmethod
     def percent_solution():

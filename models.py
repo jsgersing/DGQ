@@ -1,12 +1,18 @@
+from typing import Optional, Union
+
 from flask import render_template, request
+
 from mongo_interface_component import MongoDB
 from bson import ObjectId
 
+from question_class import QuestionFactory
 
 db = MongoDB("gmat_data")
 
 
-def route_unpacking(question, q_number):
+def route_unpacking(
+        question: Union[QuestionFactory.no_of_primes(), QuestionFactory.work_time(), QuestionFactory.percent_solution(),
+                        QuestionFactory.age_diff()], q_number: int) -> render_template(Optional[str]):
     test_data = {"correct": question.correct,
                  "stem": question.question_stem, "a": question.ac_list[0],
                  "b": question.ac_list[1], "c": question.ac_list[2],
@@ -43,7 +49,7 @@ def route_unpacking(question, q_number):
                                    e=question.ac_list[4], response=response, _id=_id, q_number=q_number)
 
 
-def route_unpacking_commas(question, q_number):
+def route_unpacking_commas(question: QuestionFactory.sum_of_first_n_numbers(), q_number: int) -> Optional[str]:
     test_data = {"correct": question.correct,
                  "stem": question.question_stem, "a": question.ac_list[0],
                  "b": question.ac_list[1], "c": question.ac_list[2],
@@ -85,7 +91,7 @@ def route_unpacking_commas(question, q_number):
                                    response=response, _id=_id, q_number=q_number)
 
 
-def route_unpacking_dollars(question, q_number):
+def route_unpacking_dollars(question: QuestionFactory.jacket_profit(), q_number: int) -> Optional[str]:
     test_data = {"correct": question.correct,
                  "stem": question.question_stem, "a": question.ac_list[0],
                  "b": question.ac_list[1], "c": question.ac_list[2],
@@ -129,7 +135,7 @@ def route_unpacking_dollars(question, q_number):
                                    repsonse=response, _id=_id, q_number=q_number)
 
 
-def route_unpacking_fractions(question, q_number):
+def route_unpacking_fractions(question: QuestionFactory.mf_rat_ratio(), q_number: int) -> Optional[str]:
     test_data = {"correct": question.correct,
                  "stem": str(question.question_stem), "a": str(question.ac_list[0]),
                  "b": str(question.ac_list[1]), "c": str(question.ac_list[2]),
