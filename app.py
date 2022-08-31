@@ -21,7 +21,7 @@ def home():
 def reset():
     # DB.drop_all()
     # DB.create_all()
-    db.delete("questions")
+    db.delete("questions", {})
     return render_template('home.html', title='Reset DB')
 
 
@@ -69,6 +69,12 @@ def question6():
 @APP.route("/question7", methods=['POST', 'GET'])
 def question7():
     output = route_unpacking(QuestionFactory(7).percent_solution(), q_number=7)
+    return output
+
+
+@APP.route("/question8", methods=['POST', 'GET'])
+def question8():
+    output = route_unpacking_fractions(QuestionFactory(8).original_solution(), q_number=8)
     return output
 
 

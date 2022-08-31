@@ -1,4 +1,4 @@
-from typing import Optional, Union
+from typing import Optional, Union, Any
 
 from flask import render_template, request
 
@@ -10,9 +10,7 @@ from question_class import QuestionFactory
 db = MongoDB("gmat_data")
 
 
-def route_unpacking(
-        question: Union[QuestionFactory.no_of_primes(), QuestionFactory.work_time(), QuestionFactory.percent_solution(),
-                        QuestionFactory.age_diff()], q_number: int) -> render_template(Optional[str]):
+def route_unpacking(question: Optional[Any], q_number: int) -> Optional[str]:
     test_data = {"correct": question.correct,
                  "stem": question.question_stem, "a": question.ac_list[0],
                  "b": question.ac_list[1], "c": question.ac_list[2],

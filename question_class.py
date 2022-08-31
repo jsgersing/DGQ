@@ -229,6 +229,10 @@ these jobs?"""
         starting_kg = randrange(6, 12, 2)
         evaporated_kg = randrange(2, 4, 2)
         correct = 100 * (starting_kg * percent_liquid_x / 100 + evaporated_kg * percent_liquid_x / 100) / starting_kg
+        if correct == int(correct):
+            correct = int(correct)
+        else:
+            correct = correct
         stem = f"""Solution Y is {percent_liquid_x} percent liquid X and 
         {percent_water} percent water. If {evaporated_kg} kilograms of water
         evaporate from {starting_kg} kilograms of solution Y and {evaporated_kg}
@@ -255,10 +259,41 @@ these jobs?"""
             i += 1
         choices_and_correct = arrange_answer_choices(answer_choices=answer_choices, correct=correct)
         choices = choices_and_correct[0]
-        rounded = ["{:,.2f}".format(choice) for choice in choices]
-        choices_as_percents = [f"{choice}%" for choice in rounded]
+        if correct == int(correct):
+            choices_as_percents = [f"{choice}%" for choice in choices]
+        else:
+            rounded = ["{:,.2f}".format(choice) for choice in choices]
+            choices_as_percents = [f"{choice}%" for choice in rounded]
         return QuestionElements(
             question_stem=stem, ac_list=choices_as_percents, correct=choices_and_correct[1])
+
+    @staticmethod
+    def original_solution():
+        percent_1 = 5 * randint(1, 6)
+        percent_2 = 5 * randint(7, 12)
+        liter_increase = randint(1, 5)
+        numerator = (100 - percent_2) * liter_increase
+        denominator = percent_2 - percent_1
+        correct = Fraction(numerator / denominator).limit_denominator()
+        if round(float(correct)) == int(correct):
+            correct = int(correct)
+        else:
+            correct = correct
+        stem = f"""A certain tub originally contained a solution that was {percent_1} 
+        percent ammonia by volume. After {liter_increase} liters of ammonia was added
+        to the tub, the new solution was {percent_2} percent ammonia by volume. How
+        many liters were in the original solution?"""
+        answer_choices = []
+        print(stem)
+        answer_choices.append(correct)
+        while len(answer_choices) < 5:
+            wrongs = correct + randint(-5, 10)
+            if wrongs not in answer_choices and wrongs > 0 and wrongs != correct:
+                answer_choices.append(wrongs)
+        choices_and_correct = arrange_answer_choices(answer_choices=answer_choices, correct=correct)
+
+        return QuestionElements(
+            question_stem=stem, ac_list=choices_and_correct[0], correct=choices_and_correct[1])
 
 
 class QuestionElements:
@@ -270,5 +305,3 @@ class QuestionElements:
 
     def __repr__(self):
         return f"Question:"
-
-
